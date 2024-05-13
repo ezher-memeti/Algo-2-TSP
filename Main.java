@@ -83,40 +83,65 @@ public class Main {
 
     // NEAREST NEIGHBOR ALGORITHM
     public static List<City> nearestNeighbor(List<City> cities) {
-        List<City> tour = new ArrayList<>();
+        List<City> tour1 = new ArrayList<>();
+        List<City> tour2 = new ArrayList<>();
         // Choose a random city to start
         Random random = new Random();
-        City startCity = cities.get(random.nextInt(cities.size()));
-        tour.add(startCity); // add the start city to the arraylist
+        City startCityTour1 = cities.get(random.nextInt(cities.size()));
+        City startCityTour2 = cities.get(random.nextInt(cities.size()));
+        tour1.add(startCityTour1);
+        tour2.add(startCityTour2);// add the start city to the arraylist
 
-        int visitedCount = 1; // Start with 1 for the initial city
-        boolean[] visited = new boolean[cities.size() + 1]; // boolean array to keep track of visited cities
-        visited[startCity.id] = true;
+        int visitedCount = 2; // Start with 1 for the initial city
+//        boolean[] visited = new boolean[cities.size() + 1]; // boolean array to keep track of visited cities
+//        visited[startCityTour1.id] = true;
+//        visited[startCityTour2.id] = true;
+        startCityTour1.setVisited(true);
+        startCityTour2.setVisited(true);
 
         while (visitedCount < cities.size()) {
-            City currentCity = tour.get(tour.size() - 1);
+            City currentCityTour1 = tour1.get(tour1.size() - 1);
+            City currentCityTour2 = tour2.get(tour2.size() - 1);
             City nearestCity = null;
             int minDistance = Integer.MAX_VALUE;
-
+            int relativeDistance = 0;
+            int distance1 = 0;
+            int distance2 = 0;
+            boolean setTour1=false;
             // check the nearest unvisited neighbor for the particular city
             for (City city : cities) {
                 // checks if the current city is visited
-                if (!visited[city.id]) {
-                    int distance = calculateDistance(currentCity, city);
-                    if (distance < minDistance) {
-                        minDistance = distance;
+                if (!city.isVisited()) {
+                    distance1 = calculateDistance(currentCityTour1, city);
+                    distance2 = calculateDistance(currentCityTour2, city);
+                    relativeDistance = Math.min(distance2, distance1);
+                    if (relativeDistance==distance1){
+                        setTour1=true;
+                    }
+                    else {
+                        setTour1=false;
+                    }
+                    if (relativeDistance < minDistance) {
+                        minDistance = relativeDistance;
                         nearestCity = city;
                     }
+
                 }
             }
-
+            visitedCount=visitedCount+1;
+            nearestCity.setVisited(true);
             // add the next nearest city to the tour
-            tour.add(nearestCity);
-            visited[nearestCity.id] = true;
-            visitedCount++;
-        }
+            if (setTour1) {
+                tour1.add(nearestCity);
+                return tour1;
+            } else {
+                tour2.add(nearestCity);
+                return tour2;
+            }
+//            visited[nearestCity.id] = true;
 
-        return tour;
+        }
+        return tour1;
     }
 
 

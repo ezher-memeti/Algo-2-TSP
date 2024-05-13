@@ -1,10 +1,19 @@
 public class City {
     int id,x,y;
+    boolean visited=false;
     public City(int id, int x,int y){
         this.id=id;
         this.x=x;
         this.y=y;
     }
+
+    public boolean isVisited() {
+        return visited;
+    }
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
     public int getId() {
         return id;
     }

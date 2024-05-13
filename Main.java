@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         //READ THE INPUT FILE
-        String inputFile = "src/input1.txt";
-        String outputFile = "src/output.txt";
+        String inputFile = "input1.txt";
+        String outputFile = "output.txt";
 
         ArrayList<City> cities = new ArrayList<>();
 
@@ -86,7 +86,7 @@ public class Main {
         List<City> tour = new ArrayList<>();
         // Choose a random city to start
         Random random = new Random();
-        City startCity = cities.get(0);
+        City startCity = cities.get(random.nextInt(cities.size()));
         tour.add(startCity); // add the start city to the arraylist
 
         int visitedCount = 1; // Start with 1 for the initial city

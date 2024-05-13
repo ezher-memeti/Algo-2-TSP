@@ -36,8 +36,9 @@ public class Main {
         }
 
         // Nearest Neighbor algorithm for 2-tsp
-        List<City> tour1 = nearestNeighbor(cities);
-        List<City> tour2 = nearestNeighbor(cities);
+        ArraylistHolder tours = nearestNeighbor(cities);
+        List<City> tour1 = tours.getTour1();
+        List<City> tour2 = tours.getTour2();
         //:::::TEST:::::
         System.out.println("--------------TEST-------------");
         System.out.println("tour1: - BEFORE 2-OPT");
@@ -82,9 +83,9 @@ public class Main {
     }
 
     // NEAREST NEIGHBOR ALGORITHM
-    public static List<City> nearestNeighbor(List<City> cities) {
-        List<City> tour1 = new ArrayList<>();
-        List<City> tour2 = new ArrayList<>();
+    public static ArraylistHolder nearestNeighbor(List<City> cities) {
+        ArrayList<City> tour1 = new ArrayList<>();
+        ArrayList<City> tour2 = new ArrayList<>();
         // Choose a random city to start
         Random random = new Random();
         City startCityTour1 = cities.get(random.nextInt(cities.size()));
@@ -108,12 +109,14 @@ public class Main {
             int distance1 = 0;
             int distance2 = 0;
             boolean setTour1=false;
-            // check the nearest unvisited neighbor for the particular city
+            //check the nearest unvisited neighbor for the particular city
             for (City city : cities) {
-                // checks if the current city is visited
+                //checks if the current city is visited
                 if (!city.isVisited()) {
+                    //calculates the distance for salesman 1 and 2
                     distance1 = calculateDistance(currentCityTour1, city);
                     distance2 = calculateDistance(currentCityTour2, city);
+                    //chooses the min distance calculated by salesman 1 and 2
                     relativeDistance = Math.min(distance2, distance1);
                     if (relativeDistance==distance1){
                         setTour1=true;
@@ -133,15 +136,12 @@ public class Main {
             // add the next nearest city to the tour
             if (setTour1) {
                 tour1.add(nearestCity);
-                return tour1;
             } else {
                 tour2.add(nearestCity);
-                return tour2;
             }
 //            visited[nearestCity.id] = true;
-
         }
-        return tour1;
+        return new ArraylistHolder(tour1, tour2);
     }
 
 

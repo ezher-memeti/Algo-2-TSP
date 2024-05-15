@@ -39,6 +39,7 @@ public class Main {
         ArraylistHolder tours = nearestNeighbor(cities);
         List<City> tour1 = tours.getTour1();
         List<City> tour2 = tours.getTour2();
+
         //:::::TEST:::::
         System.out.println("--------------TEST-------------");
         System.out.println("tour1: - BEFORE 2-OPT");
@@ -139,8 +140,8 @@ public class Main {
             } else {
                 tour2.add(nearestCity);
             }
-//            visited[nearestCity.id] = true;
         }
+
         return new ArraylistHolder(tour1, tour2);
     }
 
@@ -180,6 +181,7 @@ public class Main {
         for (int i = 0; i < tour.size() - 1; i++) {
             totalDistance += calculateDistance(tour.get(i), tour.get(i + 1));
         }
+        totalDistance+=calculateDistance(tour.get(0),tour.get(tour.size()-1));
         return totalDistance;
     }
 

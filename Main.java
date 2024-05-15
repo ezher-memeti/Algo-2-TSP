@@ -94,9 +94,6 @@ public class Main {
         tour2.add(startCityTour2);// add the start city to the arraylist
 
         int visitedCount = 2; // Start with 1 for the initial city
-//        boolean[] visited = new boolean[cities.size() + 1]; // boolean array to keep track of visited cities
-//        visited[startCityTour1.id] = true;
-//        visited[startCityTour2.id] = true;
         startCityTour1.setVisited(true);
         startCityTour2.setVisited(true);
 
@@ -139,8 +136,8 @@ public class Main {
             } else {
                 tour2.add(nearestCity);
             }
-//            visited[nearestCity.id] = true;
         }
+
         return new ArraylistHolder(tour1, tour2);
     }
 
